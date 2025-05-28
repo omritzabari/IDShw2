@@ -1,12 +1,8 @@
-from sys import flags
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from pyexpat import features
 
 np.random.seed(2)
-
 
 def add_noise(data):
     """
@@ -28,7 +24,6 @@ def choose_initial_centroids(data, k):
     return data[indices]
 
 
-# ====================
 def transform_data(df, features):
     """
     Performs the following transformations on df:
@@ -46,8 +41,8 @@ def transform_data(df, features):
         df_copy[col] = (df_copy[col] - min) / (max - min)
 
     arr = df_copy.values
-    arr_with_nois = add_noise(arr)
-    return arr_with_nois
+    arr_with_noise = add_noise(arr)
+    return arr_with_noise
 
 
 
@@ -87,7 +82,8 @@ def visualize_results(data, labels, centroids, path):
     plt.scatter(data[:, 0], data[:, 1], c = colors[labels])
 
     for i in range(len(centroids)):
-        plt.scatter(centroids[i,0], centroids[i,1], color='white', edgecolors='black', marker='*', linewidth=2, s=222, alpha=0.85,  label=f'Centroid' if i==0 else None)
+        plt.scatter(centroids[i,0], centroids[i,1], color='white', edgecolors='black', marker='*', linewidth=2, s=222,
+                    alpha=0.85,  label=f'Centroid' if i==0 else None)
         
     plt.xlabel('cnt')
     plt.ylabel('t1')
@@ -95,7 +91,6 @@ def visualize_results(data, labels, centroids, path):
     plt.legend()
     plt.savefig(path)
     plt.show()
-    #plt.savefig(path)
 
 def dist(x, y):
     """
@@ -105,7 +100,6 @@ def dist(x, y):
     :return: the euclidean distance
     """
     return np.array(np.linalg.norm(x - y, axis=1))
-    # return distance
 
 def assign_to_clusters(data, centroids):
     """
